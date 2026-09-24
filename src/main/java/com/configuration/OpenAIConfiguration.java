@@ -1,25 +1,26 @@
 package com.configuration;
 
 
+import com.entity.LLMProperties;
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class OpenAIConfiguration {
 
-    @Value("${llm.api_token}")
-    private String token;
+    private final LLMProperties llmProperties;
 
 
     @Bean
     public OpenAIClient openAIClient() {
         return OpenAIOkHttpClient
                 .builder()
-                .apiKey(token)
-                .baseUrl("https://api.deepseek.com")
+                .apiKey(llmProperties.apiToken())
+                .baseUrl(llmProperties.baseUrl())
                 .build();
     }
 }

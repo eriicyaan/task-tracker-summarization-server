@@ -2,6 +2,10 @@ package com.service;
 
 
 import com.openai.client.OpenAIClient;
+import com.openai.models.chat.completions.ChatCompletion;
+import com.openai.models.chat.completions.ChatCompletionCreateParams;
+import com.openai.models.chat.completions.ChatCompletionMessage;
+import com.openai.models.chat.completions.ChatCompletionUserMessageParam;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
 import com.openai.models.responses.ResponseOutputText;
@@ -19,22 +23,23 @@ public class OpenAIService {
 
 
     public String generateReport(String prompt, String model) {
-        ResponseCreateParams params = ResponseCreateParams.builder()
-                .input(prompt)
+
+        ChatCompletionUserMessageParam userMessage = ChatCompletionUserMessageParam.builder()
+                .content(ChatCompletionUserMessageParam.Content.ofText(prompt))
+                .build();
+
+        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                .addMessage(userMessage)
                 .model(model)
                 .build();
 
+        ChatCompletion chatCompletion = openAIClient.chat().completions().create(params);
 
-        Response response = openAIClient.responses().create(params);
-
-
-        return response.output()
-                .stream()
-                .flatMap(item -> item.message().stream())
-                .flatMap(message -> message.content().stream())
-                .flatMap(content -> content.outputText().stream())
-                .map(ResponseOutputText::text)
-                .collect(Collectors.joining("\n"));
+        return chatCompletion.choices()
+                .get(0)
+                .message()
+                .content()
+                .orElse("");
     }
 
 

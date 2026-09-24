@@ -3,12 +3,10 @@ package com.service;
 
 import com.dto.TaskForSummaryDto;
 import com.dto.response.TaskResponse;
-import com.entity.TaskStatus;
+import com.entity.LLMProperties;
 import com.mapper.TaskResponseMapper;
-import com.openai.client.OpenAIClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -24,12 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SummarizationService {
 
-    @Value("${llm.prompt}")
-    private String prompt;
-
-
-    @Value("${llm.model}")
-    private String model;
+    private final LLMProperties llmProperties;
 
     @Value("${internal.service.secret}")
     private String secret;
@@ -45,10 +38,7 @@ public class SummarizationService {
         List<TaskForSummaryDto> tasks = getTasks(userId);
         String prompt = createPrompt(tasks);
 
-        String response = openAIService.generateReport(prompt, model);
-
-        log.warn(response);
-        return response;
+        return openAIService.generateReport(prompt, llmProperties.model());
     }
 
 
@@ -73,7 +63,7 @@ public class SummarizationService {
     private String createPrompt(List<TaskForSummaryDto> tasks) {
         String jsonTasks = objectMapper.writeValueAsString(tasks);
 
-        return prompt.formatted(jsonTasks);
+        return llmProperties.prompt().formatted(jsonTasks);
     }
 
 
