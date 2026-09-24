@@ -4,15 +4,20 @@ package com.service;
 import com.dto.TaskForSummaryDto;
 import com.dto.response.TaskResponse;
 import com.entity.LLMProperties;
+import com.exception.UserNotFoundException;
 import com.mapper.TaskResponseMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import tools.jackson.databind.ObjectMapper;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,14 +36,19 @@ public class SummarizationService {
     private final OpenAIService openAIService;
     private final TaskResponseMapper taskResponseMapper;
     private final ObjectMapper objectMapper;
+    private final PdfService pdfService;
 
 
-
-    public String getSummarization(UUID userId) {
+    public InputStreamResource  getSummarization(UUID userId) throws IOException {
         List<TaskForSummaryDto> tasks = getTasks(userId);
         String prompt = createPrompt(tasks);
 
-        return openAIService.generateReport(prompt, llmProperties.model());
+        String text = openAIService.generateReport(prompt, llmProperties.model());
+
+        ByteArrayInputStream inputStream = pdfService.createPdf(text);
+
+        return new InputStreamResource(inputStream);
+
     }
 
 
@@ -51,6 +61,9 @@ public class SummarizationService {
 
         List<TaskResponse> tasks = restClient.get()
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (req, resp) -> {
+                    throw new UserNotFoundException("user not found");}
+                )
                 .body(new ParameterizedTypeReference<>() {
                 });
 
