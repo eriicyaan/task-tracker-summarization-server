@@ -1,6 +1,7 @@
 package com.controller.rest;
 
 
+import com.dto.response.TaskSummarizationResponse;
 import com.service.SummarizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/summarization")
+@RequestMapping("api/internal/summarization")
 @RequiredArgsConstructor
 public class SummarizationRestController {
 
@@ -24,11 +25,12 @@ public class SummarizationRestController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<InputStreamResource> getSummarization(@PathVariable("id") UUID userId)
+    public ResponseEntity<TaskSummarizationResponse> getSummarization(@PathVariable("id") UUID userId)
             throws IOException {
 
         InputStreamResource resource = summarizationService.getSummarization(userId);
 
+        TaskSummarizationResponse taskSummarizationResponse = new TaskSummarizationResponse(userId, resource);
 
         return ResponseEntity.ok()
                 .header(
@@ -36,7 +38,7 @@ public class SummarizationRestController {
                         "attachment; filename=\"summary.pdf\""
                 )
                 .contentType(MediaType.APPLICATION_PDF)
-                .body(resource);
+                .body(taskSummarizationResponse);
 
     }
 }
