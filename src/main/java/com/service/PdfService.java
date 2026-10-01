@@ -8,14 +8,13 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @Service
 public class PdfService {
 
-    public ByteArrayInputStream createPdf(String text) throws IOException {
+    public byte[] createPdf(String text) throws IOException {
         try (
                 PDDocument document = new PDDocument();
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
@@ -47,7 +46,7 @@ public class PdfService {
 
             document.save(outputStream);
 
-            return new ByteArrayInputStream(outputStream.toByteArray());
+            return outputStream.toByteArray();
         }
     }
 }

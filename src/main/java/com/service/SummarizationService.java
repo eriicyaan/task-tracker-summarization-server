@@ -10,13 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import tools.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -39,22 +37,20 @@ public class SummarizationService {
     private final PdfService pdfService;
 
 
-    public InputStreamResource  getSummarization(UUID userId) throws IOException {
+    public byte[] getSummarization(UUID userId) throws IOException {
         List<TaskForSummaryDto> tasks = getTasks(userId);
         String prompt = createPrompt(tasks);
 
         String text = openAIService.generateReport(prompt, llmProperties.model());
 
-        ByteArrayInputStream inputStream = pdfService.createPdf(text);
-
-        return new InputStreamResource(inputStream);
+        return  pdfService.createPdf(text);
 
     }
 
 
     private List<TaskForSummaryDto> getTasks(UUID id) {
         RestClient restClient = RestClient.builder()
-                .baseUrl("http://localhost:8081/api/internal/backend/tasks/" + id)
+                .baseUrl("http://localhost:8080/api/internal/backend/tasks/" + id)
                 .defaultHeader("X-Internal-Service-Key", secret)
                 .build();
 

@@ -1,6 +1,12 @@
 internal:
   service.secret: ${INTERNAL_SERVICE_SECRET}
 
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: summarization-group
+
 llm:
   base-url: ${LLM_BASE_URL}
   api-token: ${LLM_API_TOKEN}
@@ -23,3 +29,6 @@ llm:
     
     Задачи:
     %s
+
+server:
+  port: 8083

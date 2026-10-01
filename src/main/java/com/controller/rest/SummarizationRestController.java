@@ -28,7 +28,7 @@ public class SummarizationRestController {
     public ResponseEntity<TaskSummarizationResponse> getSummarization(@PathVariable("id") UUID userId)
             throws IOException {
 
-        InputStreamResource resource = summarizationService.getSummarization(userId);
+        byte[] resource = summarizationService.getSummarization(userId);
 
         TaskSummarizationResponse taskSummarizationResponse = new TaskSummarizationResponse(userId, resource);
 
