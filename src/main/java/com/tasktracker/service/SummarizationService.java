@@ -1,11 +1,11 @@
-package com.service;
+package com.tasktracker.service;
 
 
-import com.dto.TaskForSummaryDto;
-import com.dto.response.TaskResponse;
-import com.entity.LLMProperties;
-import com.exception.UserNotFoundException;
-import com.mapper.TaskResponseMapper;
+import com.tasktracker.dto.TaskForSummaryDto;
+import com.tasktracker.dto.response.TaskResponse;
+import com.tasktracker.entity.LLMProperties;
+import com.tasktracker.handler.exception.UserNotFoundException;
+import com.tasktracker.mapper.TaskResponseMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +50,7 @@ public class SummarizationService {
 
     private List<TaskForSummaryDto> getTasks(UUID id) {
         RestClient restClient = RestClient.builder()
-                .baseUrl("http://localhost:8080/api/internal/backend/tasks/" + id)
+                .baseUrl("http://task_tracker_backend:8080/api/internal/backend/tasks/" + id)
                 .defaultHeader("X-Internal-Service-Key", secret)
                 .build();
 

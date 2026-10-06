@@ -4,7 +4,7 @@ internal:
 spring:
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}:9092
       group-id: summarization-group
 
 llm:

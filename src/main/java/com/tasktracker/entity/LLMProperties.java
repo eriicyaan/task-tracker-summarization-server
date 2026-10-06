@@ -1,4 +1,4 @@
-package com.entity;
+package com.tasktracker.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

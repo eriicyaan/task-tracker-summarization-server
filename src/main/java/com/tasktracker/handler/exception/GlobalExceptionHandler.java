@@ -1,7 +1,6 @@
-package com.handler.exception;
+package com.tasktracker.handler.exception;
 
 
-import com.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

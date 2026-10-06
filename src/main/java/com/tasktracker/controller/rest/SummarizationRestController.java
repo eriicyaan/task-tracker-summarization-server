@@ -1,10 +1,9 @@
-package com.controller.rest;
+package com.tasktracker.controller.rest;
 
 
-import com.dto.response.TaskSummarizationResponse;
-import com.service.SummarizationService;
+import com.tasktracker.dto.response.TaskSummarizationResponse;
+import com.tasktracker.service.SummarizationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

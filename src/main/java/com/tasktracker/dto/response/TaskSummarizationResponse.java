@@ -1,6 +1,4 @@
-package com.dto.response;
-
-import org.springframework.core.io.InputStreamResource;
+package com.tasktracker.dto.response;
 
 import java.util.UUID;
 

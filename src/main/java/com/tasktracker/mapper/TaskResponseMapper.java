@@ -1,7 +1,7 @@
-package com.mapper;
+package com.tasktracker.mapper;
 
-import com.dto.TaskForSummaryDto;
-import com.dto.response.TaskResponse;
+import com.tasktracker.dto.TaskForSummaryDto;
+import com.tasktracker.dto.response.TaskResponse;
 import org.springframework.stereotype.Component;
 
 @Component

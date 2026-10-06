@@ -1,7 +1,7 @@
-package com.configuration;
+package com.tasktracker.configuration;
 
 
-import com.entity.LLMProperties;
+import com.tasktracker.entity.LLMProperties;
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.dto;
+package com.tasktracker.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

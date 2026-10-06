@@ -1,4 +1,4 @@
-package com.entity;
+package com.tasktracker.entity;
 
 public enum TaskStatus {
     TODO,

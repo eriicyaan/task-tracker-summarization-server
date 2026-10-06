@@ -1,12 +1,11 @@
-package com.kafka.handler;
+package com.tasktracker.kafka.handler;
 
 
-import com.kafka.rpc.summarization.SchedulerSummarizationRequest;
-import com.kafka.rpc.summarization.SchedulerSummarizationResponse;
-import com.service.SummarizationService;
+import com.tasktracker.kafka.rpc.summarization.SchedulerSummarizationRequest;
+import com.tasktracker.kafka.rpc.summarization.SchedulerSummarizationResponse;
+import com.tasktracker.service.SummarizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.SendTo;

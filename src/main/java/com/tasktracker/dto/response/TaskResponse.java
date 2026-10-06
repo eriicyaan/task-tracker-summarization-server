@@ -1,4 +1,4 @@
-package com.dto.response;
+package com.tasktracker.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
