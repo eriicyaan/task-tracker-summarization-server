@@ -50,7 +50,7 @@ public class SummarizationService {
 
     private List<TaskForSummaryDto> getTasks(UUID id) {
         RestClient restClient = RestClient.builder()
-                .baseUrl("http://task_tracker_backend:8080/api/internal/backend/tasks/" + id)
+                .baseUrl("http://task-tracker-backend:8080/api/internal/backend/tasks/" + id)
                 .defaultHeader("X-Internal-Service-Key", secret)
                 .build();
 

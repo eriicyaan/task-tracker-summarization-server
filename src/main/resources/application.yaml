@@ -4,8 +4,9 @@ internal:
 spring:
   kafka:
     consumer:
-      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}
       group-id: summarization-group
+      trusted-packages: com.tasktracker.kafka.rpc.summarization
 
 llm:
   base-url: ${LLM_BASE_URL}

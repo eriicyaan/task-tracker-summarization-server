@@ -75,7 +75,7 @@ public class KafkaConfiguration {
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, UUIDDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, environment.getProperty("spring.kafka.consumer.group-id"));
-        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "com.kafka.rpc.summarization");
+        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, environment.getProperty("spring.kafka.consumer.trusted-packages"));
         config.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, SchedulerSummarizationRequest.class);
 
         return config;
