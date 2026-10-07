@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-@KafkaListener(topics = "schedular-summarization-request-topic", groupId = "summarization-group")
+@KafkaListener(topics = "scheduler-summarization-request-topic", groupId = "summarization-group")
 @RequiredArgsConstructor
 public class SummarizationHandler {
 

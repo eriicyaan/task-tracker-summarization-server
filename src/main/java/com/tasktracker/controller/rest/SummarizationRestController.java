@@ -1,7 +1,7 @@
 package com.tasktracker.controller.rest;
 
 
-import com.tasktracker.dto.response.TaskSummarizationResponse;
+import com.tasktracker.response.TaskSummarizationResponse;
 import com.tasktracker.service.SummarizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

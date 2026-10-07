@@ -2,10 +2,10 @@ package com.tasktracker.service;
 
 
 import com.tasktracker.dto.TaskForSummaryDto;
-import com.tasktracker.dto.response.TaskResponse;
 import com.tasktracker.entity.LLMProperties;
 import com.tasktracker.handler.exception.UserNotFoundException;
 import com.tasktracker.mapper.TaskResponseMapper;
+import com.tasktracker.response.TaskResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
